@@ -17,15 +17,7 @@ func (app *application) createMovieHandler(w http.ResponseWriter, r *http.Reques
 // showMovieHandler shows movie by id
 // for the request "GET /v1/movies/:id"
 func (app *application) showMovieHandler(w http.ResponseWriter, r *http.Request) {
-	// use ParamsFromContext() to try retrieve the params
-	params := httprouter.ParamsFromContext(r.Context())
-
-	// use ByName() method to get the value of 'id'
-	// we're using unique positive ints for ID values
-	// if the value cannot be retrieved
-	// or is a non-positive int
-	// we return 404 Not Found
-	id, err := strconv.ParseInt(params.ByName("id"), 10, 64) // base 10 with a bit size of 64
+	id, err := app.readIDParam(r)
 	if err != nil || id < 1 {
 		http.NotFound(w, r)
 		return
