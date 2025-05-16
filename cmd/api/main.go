@@ -47,16 +47,12 @@ func main() {
 		logger: logger,
 	}
 
-	// declare a new servemux and register routes with handler funcs
-	mux := http.NewServeMux()
-	mux.HandleFunc("/v1/healthcheck", app.healthcheckHandler)
-
 	// declare a HTTP server with timeout settings
 	// which listens on the port specified in config
 	// and uses our servemux
 	srv := &http.Server{
 		Addr:         fmt.Sprintf(":%d", cfg.port),
-		Handler:      mux,
+		Handler:      app.routes(),
 		IdleTimeout:  time.Minute,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 30 * time.Second,
