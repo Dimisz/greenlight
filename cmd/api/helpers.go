@@ -9,14 +9,17 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
+// define envelope type
+type envelope map[string]any
+
 // writeJSON() is a helper to send responses
 // Takes the following params:
 // - destination http.ResponseWriter
 // - HTTP status code to send
 // - data to encode to JSON
 // - header map with any additional headers we want to include
-func (app *application) writeJSON(w http.ResponseWriter, status int, data any, headers http.Header) error {
-	jsonResponse, err := json.Marshal(data)
+func (app *application) writeJSON(w http.ResponseWriter, status int, data envelope, headers http.Header) error {
+	jsonResponse, err := json.MarshalIndent(data, "", "\t")
 	if err != nil {
 		return err
 	}
