@@ -1,5 +1,3 @@
-module greenlight
+module github.com/dimisz/greenlight
 
-go 1.22.2
-
-require github.com/julienschmidt/httprouter v1.3.0 // indirect
+go 1.25.1
