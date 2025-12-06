@@ -68,8 +68,7 @@ func (m MovieModel) Get(id int64) (*Movie, error) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
-	//debug
-	fmt.Println(query)
+
 	err := m.DB.QueryRowContext(ctx, query, id).Scan(
 		&movie.ID,
 		&movie.CreatedAt,
